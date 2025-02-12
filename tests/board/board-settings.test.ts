@@ -21,11 +21,13 @@ describe("Board - Settings Management", () => {
     expect(board.settings.visibility).toBe("private"); // Default remains
     expect(board.settings.allowInvites).toBe(false); // Updated
   });
+  
+  it("should throw an error for invalid settings and not add them", () => {
+    expect(() =>
+      board.updateSettings({ fakeSetting: "invalid" } as any)
+    ).toThrow("Invalid setting: fakeSetting");
 
-  it("should ignore invalid keys without throwing an error", () => {
-    board.updateSettings({ fakeSetting: "invalid" } as any);
-
-    expect(board.settings).not.toHaveProperty("fakeSetting"); // Invalid setting is ignored
-    expect(board.updatedAt).toBeInstanceOf(Date); // Timestamp still updates
+    expect(board.settings).not.toHaveProperty("fakeSetting"); // Ensures it wasn't added
+    expect(board.updatedAt).toBeInstanceOf(Date); // Still updates the timestamp
   });
 });
