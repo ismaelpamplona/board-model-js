@@ -1,1 +1,21 @@
 # set_up_environment (Issue)
+
+- [x] Initialize a new Node.js project with `package.json`
+- [x] Add .gitignore file.
+- [x] Install dependencies:
+  - `typescript` - TypeScript support
+  - `ts-node` - Run TypeScript files without compilation
+  - `jest` - Testing framework
+  - `ts-jest` - Jest with TypeScript support
+  - `@types/jest` - Type definitions for Jest
+- [x] Configure TypeScript (`tsconfig.json`):
+  - Enable `strict` mode
+  - Set `module` to `CommonJS`
+  - Set `target` to `ES6` or later
+  - Include `src` directory
+- [x] Configure Jest (`jest.config.js` or `jest.config.ts`)
+  - Set `preset` to `ts-jest`
+  - Configure test match pattern to `**/*.test.ts`
+- [x] Create a `src/` directory for implementation
+- [x] Create a `tests/` directory for unit tests
+- [x] Add a basic test to confirm Jest is working

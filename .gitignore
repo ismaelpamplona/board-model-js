@@ -1,0 +1,25 @@
+# Node.js dependencies
+node_modules/
+dist/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# TypeScript build files
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# Jest coverage and test outputs
+coverage/
+jest-cache/
+jest-output.log
+
+# Editor and system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
