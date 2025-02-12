@@ -31,6 +31,10 @@ export class Board {
   };
 
   constructor(title: string) {
+    if (!title || typeof title !== "string" || title.trim() === "") {
+      throw new Error("Title must be a non-empty string");
+    }
+
     this.id = this.generateId();
     this.title = title;
     this.lists = [];
@@ -60,5 +64,26 @@ export class Board {
 
   private generateId(): string {
     return uuidv4();
+  }
+
+  addList(title: string): List {
+    const newList = new List(title);
+    this.lists.push(newList);
+    return newList;
+  }
+  removeList(id: string): void {
+    this.lists = this.lists.filter((list) => list.id !== id);
+  }
+
+  getListById(id: string): List | null {
+    return this.lists.find((list) => list.id === id) || null;
+  }
+
+  moveList(id: string, position: number): void {
+    const index = this.lists.findIndex((list) => list.id === id);
+    if (index === -1 || position < 0 || position >= this.lists.length) return;
+
+    const [movedList] = this.lists.splice(index, 1); // Remove the list
+    this.lists.splice(position, 0, movedList); // Insert at new position
   }
 }
