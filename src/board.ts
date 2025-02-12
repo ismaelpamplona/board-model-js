@@ -86,4 +86,23 @@ export class Board {
     const [movedList] = this.lists.splice(index, 1); // Remove the list
     this.lists.splice(position, 0, movedList); // Insert at new position
   }
+
+  changeTitle(newTitle: string): void {
+    if (typeof newTitle !== "string" || newTitle.trim() === "") {
+      throw new Error("Title must be a non-empty string");
+    }
+
+    this.title = newTitle.trim();
+    this.updatedAt = new Date();
+  }
+
+  updateSettings(settings: Partial<typeof this.settings>): void {
+    this.settings = {
+      ...this.settings,
+      ...Object.fromEntries(
+        Object.entries(settings).filter(([key]) => key in this.settings)
+      ),
+    };
+    this.updatedAt = new Date();
+  }
 }
