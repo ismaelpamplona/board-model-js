@@ -1,9 +1,10 @@
 import { LogAction } from "../decorators/logAction";
+import { User } from "../user";
 import { Board } from "./index";
 
 export class BoardSettings {
   @LogAction("Changed the title")
-  changeTitle(this: Board, newTitle: string): void {
+  changeTitle(this: Board, newTitle: string, _adminUser: User): void {
     if (newTitle.trim() === "") {
       throw new Error("Title must be a non-empty string");
     }
@@ -12,7 +13,11 @@ export class BoardSettings {
     this.updatedAt = new Date();
   }
 
-  updateSettings(this: Board, settings: Partial<typeof this.settings>): void {
+  updateSettings(
+    this: Board,
+    settings: Partial<typeof this.settings>,
+    _adminUser: User
+  ): void {
     Object.keys(settings).forEach((key) => {
       if (!(key in this.settings)) {
         throw new Error(`Invalid setting: ${key}`);
@@ -24,7 +29,7 @@ export class BoardSettings {
   }
 
   @LogAction("Changed the background image")
-  changeBackgroundImage(this: Board, url: string): void {
+  changeBackgroundImage(this: Board, url: string, _adminUser: User): void {
     if (!/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp)$/i.test(url)) {
       throw new Error("Invalid image URL format");
     }
@@ -32,7 +37,7 @@ export class BoardSettings {
   }
 
   @LogAction("Changed the background color")
-  changeBackgroundColor(this: Board, color: string): void {
+  changeBackgroundColor(this: Board, color: string, _adminUser: User): void {
     const hexPattern = /^#([0-9A-F]{3}|[0-9A-F]{6})$/i;
     const rgbPattern =
       /^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/;

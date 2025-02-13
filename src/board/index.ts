@@ -67,24 +67,27 @@ export class Board {
     };
   }
 
-  addList!: (title: string) => List;
-  removeList!: (id: string) => void;
-  getListById!: (id: string) => List | null;
-  moveList!: (id: string, position: number) => void;
+  addList!: (title: string, _adminUser: User) => List;
+  removeList!: (id: string, _adminUser: User) => void;
+  getListById!: (id: string, _adminUser: User) => List | null;
+  moveList!: (id: string, position: number, _adminUser: User) => void;
 
-  addMember!: (user: User) => void;
-  removeMember!: (userId: string) => void;
-  getMembers!: () => User[];
+  addMember!: (user: User, _adminUser: User) => void;
+  removeMember!: (userId: string, _adminUser: User) => void;
+  getMembers!: (_adminUser: User) => User[];
 
-  addLabel!: (label: Label) => void;
-  removeLabel!: (labelId: string) => void;
-  getLabels!: () => Label[];
+  addLabel!: (label: Label, _adminUser: User) => void;
+  removeLabel!: (labelId: string, _adminUser: User) => void;
+  getLabels!: (_adminUser: User) => Label[];
 
-  updateSettings!: (settings: Partial<typeof this.settings>) => void;
-  changeBackgroundImage!: (url: string) => void;
-  changeBackgroundColor!: (color: string) => void;
-  changeTitle!: (newTitle: string) => void;
-  logActivity!: (action: string, user: User) => void;
+  updateSettings!: (
+    settings: Partial<typeof this.settings>,
+    _adminUser: User
+  ) => void;
+  changeBackgroundImage!: (url: string, _adminUser: User) => void;
+  changeBackgroundColor!: (color: string, _adminUser: User) => void;
+  changeTitle!: (newTitle: string, _adminUser: User) => void;
+  logActivity!: (action: string, _adminUser: User) => void;
 }
 
 applyMixins(Board, [

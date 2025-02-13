@@ -4,20 +4,20 @@ import { Board } from "./index";
 
 export class BoardMembers {
   @LogAction("Added a member")
-  addMember(this: Board, user: User): void {
-    if (!(user instanceof User)) {
-      throw new Error("Invalid user object: must be an instance of User");
+  addMember(this: Board, newMember: User, _adminUser: User): void {
+    if (!(newMember instanceof User)) {
+      throw new Error("Invalid member object: must be an instance of User");
     }
 
-    if (this.members.some((member) => member.id === user.id)) {
+    if (this.members.some((member) => member.id === newMember.id)) {
       throw new Error("User is already a member of this board");
     }
 
-    this.members.push(user);
+    this.members.push(newMember);
   }
 
   @LogAction("Removed a member")
-  removeMember(this: Board, userId: string): void {
+  removeMember(this: Board, userId: string, _adminUser: User): void {
     if (!userId || userId.trim() === "") {
       throw new Error("Invalid id");
     }
@@ -31,7 +31,7 @@ export class BoardMembers {
   }
 
   @LogAction("Got the members")
-  getMembers(this: Board): User[] {
+  getMembers(this: Board, _adminUser: User): User[] {
     return [...this.members];
   }
 }
