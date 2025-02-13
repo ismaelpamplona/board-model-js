@@ -4,3 +4,4 @@
 - [x] Implement Log Activity Decorator: `LogAction(actionMessage: string)`
 - [x] Write Jest tests for activity logging (`logActivity`)
 - [x] Write Jest tests for activity logging (`LogAction(actionMessage: string)`)
+- [x] Adapt all tests
