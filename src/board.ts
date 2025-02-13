@@ -182,12 +182,12 @@ export class Board {
     this.members.push(user);
   }
 
-  removeMember(id: string): void {
-    if (!id || id.trim() === "") {
+  removeMember(userId: string): void {
+    if (!userId || userId.trim() === "") {
       throw new Error("Invalid id");
     }
 
-    const index = this.members.findIndex((user) => user.id === id);
+    const index = this.members.findIndex((user) => user.id === userId);
     if (index === -1) {
       throw new Error("User not found");
     }
@@ -197,5 +197,34 @@ export class Board {
 
   getMembers(): User[] {
     return [...this.members];
+  }
+
+  addLabel(label: Label): void {
+    if (!(label instanceof Label)) {
+      throw new Error("Invalid label object: must be an instance of Label");
+    }
+
+    if (this.labels.some((lab) => lab.id === label.id)) {
+      throw new Error("Label is already added to this board");
+    }
+
+    this.labels.push(label);
+  }
+
+  removeLabel(labelId: string): void {
+    if (!labelId || labelId.trim() === "") {
+      throw new Error("Invalid id");
+    }
+
+    const index = this.labels.findIndex((label) => label.id === labelId);
+    if (index === -1) {
+      throw new Error("Label not found");
+    }
+
+    this.labels.splice(index, 1);
+  }
+
+  getLabels(): Label[] {
+    return [...this.labels];
   }
 }
