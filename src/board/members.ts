@@ -1,7 +1,9 @@
+import { LogAction } from "../decorators/logAction";
 import { User } from "../user";
 import { Board } from "./index";
 
 export class BoardMembers {
+  @LogAction("Added a member")
   addMember(this: Board, user: User): void {
     if (!(user instanceof User)) {
       throw new Error("Invalid user object: must be an instance of User");
@@ -14,6 +16,7 @@ export class BoardMembers {
     this.members.push(user);
   }
 
+  @LogAction("Removed a member")
   removeMember(this: Board, userId: string): void {
     if (!userId || userId.trim() === "") {
       throw new Error("Invalid id");
@@ -27,6 +30,7 @@ export class BoardMembers {
     this.members.splice(index, 1);
   }
 
+  @LogAction("Got the members")
   getMembers(this: Board): User[] {
     return [...this.members];
   }

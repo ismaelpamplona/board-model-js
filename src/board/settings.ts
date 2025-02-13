@@ -1,6 +1,8 @@
+import { LogAction } from "../decorators/logAction";
 import { Board } from "./index";
 
 export class BoardSettings {
+  @LogAction("Changed the title")
   changeTitle(this: Board, newTitle: string): void {
     if (newTitle.trim() === "") {
       throw new Error("Title must be a non-empty string");
@@ -21,6 +23,7 @@ export class BoardSettings {
     this.updatedAt = new Date();
   }
 
+  @LogAction("Changed the background image")
   changeBackgroundImage(this: Board, url: string): void {
     if (!/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp)$/i.test(url)) {
       throw new Error("Invalid image URL format");
@@ -28,6 +31,7 @@ export class BoardSettings {
     this.backgroundImage = url;
   }
 
+  @LogAction("Changed the background color")
   changeBackgroundColor(this: Board, color: string): void {
     const hexPattern = /^#([0-9A-F]{3}|[0-9A-F]{6})$/i;
     const rgbPattern =

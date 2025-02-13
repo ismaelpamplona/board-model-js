@@ -1,7 +1,9 @@
+import { LogAction } from "../decorators/logAction";
 import { Label } from "../label";
 import { Board } from "./index";
 
 export class BoardLabels {
+  @LogAction("Added a label")
   addLabel(this: Board, label: Label): void {
     if (!(label instanceof Label)) {
       throw new Error("Invalid label object: must be an instance of Label");
@@ -14,6 +16,7 @@ export class BoardLabels {
     this.labels.push(label);
   }
 
+  @LogAction("Removed a label")
   removeLabel(this: Board, labelId: string): void {
     if (!labelId || labelId.trim() === "") {
       throw new Error("Invalid id");
@@ -27,6 +30,7 @@ export class BoardLabels {
     this.labels.splice(index, 1);
   }
 
+  @LogAction("Got the labels")
   getLabels(this: Board): Label[] {
     return [...this.labels];
   }

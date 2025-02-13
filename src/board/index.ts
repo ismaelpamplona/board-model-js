@@ -4,11 +4,11 @@ import { Log } from "../log";
 import { User } from "../user";
 import { applyMixins, generateId } from "../utils";
 
+import { BoardActivity } from "./activity";
 import { BoardLabels } from "./labels";
 import { BoardLists } from "./lists";
 import { BoardMembers } from "./members";
 import { BoardSettings } from "./settings";
-
 export class Board {
   id: string;
   title: string;
@@ -84,6 +84,13 @@ export class Board {
   changeBackgroundImage!: (url: string) => void;
   changeBackgroundColor!: (color: string) => void;
   changeTitle!: (newTitle: string) => void;
+  logActivity!: (action: string, user: User) => void;
 }
 
-applyMixins(Board, [BoardLists, BoardMembers, BoardLabels, BoardSettings]);
+applyMixins(Board, [
+  BoardActivity,
+  BoardLists,
+  BoardMembers,
+  BoardLabels,
+  BoardSettings,
+]);

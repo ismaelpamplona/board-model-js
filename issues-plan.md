@@ -53,6 +53,7 @@
 # board_activity_log (Issue)
 
 - [ ] Implement `logActivity(action: string, user: User): void`
+- [ ] Implement Log Activity Decorator
 - [ ] Write Jest tests for activity logging
 
 ---
