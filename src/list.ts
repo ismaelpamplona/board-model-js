@@ -1,15 +1,11 @@
-import { v4 as uuidv4 } from "uuid";
+import { generateId } from "./utils";
 
 export class List {
   id: string;
   title: string;
 
   constructor(title: string) {
-    this.id = this.generateId();
+    this.id = generateId();
     this.title = title;
-  }
-
-  private generateId(): string {
-    return uuidv4();
   }
 }

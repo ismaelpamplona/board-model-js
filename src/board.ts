@@ -1,8 +1,8 @@
-import { v4 as uuidv4 } from "uuid";
 import { Label } from "./label";
 import { List } from "./list";
 import { Log } from "./log";
 import { User } from "./user";
+import { generateId } from "./utils";
 
 export class Board {
   id: string;
@@ -35,7 +35,7 @@ export class Board {
       throw new Error("Title must be a non-empty string");
     }
 
-    this.id = this.generateId();
+    this.id = generateId();
     this.title = title;
     this.lists = [];
     this.createdAt = new Date();
@@ -62,15 +62,12 @@ export class Board {
     };
   }
 
-  private generateId(): string {
-    return uuidv4();
-  }
-
   addList(title: string): List {
     const newList = new List(title);
     this.lists.push(newList);
     return newList;
   }
+
   removeList(id: string): void {
     this.lists = this.lists.filter((list) => list.id !== id);
   }
@@ -88,7 +85,7 @@ export class Board {
   }
 
   changeTitle(newTitle: string): void {
-    if (typeof newTitle !== "string" || newTitle.trim() === "") {
+    if (newTitle.trim() === "") {
       throw new Error("Title must be a non-empty string");
     }
 
@@ -171,5 +168,34 @@ export class Board {
     }
 
     this.backgroundColor = color;
+  }
+
+  addMember(user: User): void {
+    if (!(user instanceof User)) {
+      throw new Error("Invalid user object: must be an instance of User");
+    }
+
+    if (this.members.some((member) => member.id === user.id)) {
+      throw new Error("User is already a member of this board");
+    }
+
+    this.members.push(user);
+  }
+
+  removeMember(id: string): void {
+    if (!id || id.trim() === "") {
+      throw new Error("Invalid id");
+    }
+
+    const index = this.members.findIndex((user) => user.id === id);
+    if (index === -1) {
+      throw new Error("User not found");
+    }
+
+    this.members.splice(index, 1);
+  }
+
+  getMembers(): User[] {
+    return [...this.members];
   }
 }
